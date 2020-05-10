@@ -1,0 +1,174 @@
+Arrays
+Types of Arrays:
+    Fixed Size: C,C++
+    Stack Allocated Arrays:
+        int arr[10]
+        int arr[] = {10,20,30}
+    Heap Allocated:
+        int *arr = new int[10]
+        In java, the arrays are always stored on a heap
+    Dynamic Sized: Python list, Java ArrayList, C++ Vector
+
+    Dynamic Sized arrays can act as fixed size arrays as well, therefore, recommended over fixed size
+
+Operations of Arrays:
+    SEARCH:
+        O(n) for unsorted
+        O(logn) for sorted
+    INSERTION:
+        Time Complexity of insertion is O(n)
+        Insert At the end = O(1)
+        Insert at the beginning = Theta(n)
+        insertion at the end = O(1)
+        Dynamic Arrays they preallocate the memory. Therefore, they should not be considered when we want to make an application which has memory constraints
+    DELETION:
+        Time Complexity is O(n)
+        Best: O(1)
+    Getting the ith element and update = O(1)
+    
+    Hashing has better time complexities
+
+REVERSING AN ARRAY:
+    for c++: Basically exchanging the elements of the first and last elements until they both coincide
+        void reverse(int arr[], int n){
+            int low = 0, high = n-1;
+            while(low<high){
+                int temp = arr[low]
+                arr[low]= arr[high]
+                arr[high] = temp
+                low+=1
+                high+=1
+            }
+        }
+Remove Duplicates from sorted array:
+    Naive Soln: Theta(n)
+    Auxillary Space: Theta(n)
+        int remodup(int arr[], int n){
+            int temp[n]
+            temp[0]=arr[0]
+            int res = 1
+            for(int i = 1; i<n;i++){
+                if(the last ele of temp is not current element of arr, interchange)
+                and do res++
+            return res
+            }
+        }
+    Better Soln:
+        O(n) Time and O(1) Space
+    arr[] = [10,20,20,30,30,30]
+    res = 0
+    if the next element is same, then we continue else we do res+=1
+
+Left Rotation of Array by 1:
+    func(arr):
+        return(arr[1:]+arr[0])
+    Theta(n) Constant aux Space
+
+Left Rotation by d:
+    func(arr,k):
+        return(arr[k:]+arr[0:k])
+    Naive Soln:
+        Recursive Solution of the last function
+        Theta(nd) Time
+        Theta(1)  Aux Space
+    Better Soln:
+        temporary array:
+            store the temporary array till the dth location 
+            then do arr[i-d] = arr[i]
+            Then do arr[n-d+i] = temp[i]
+        Theta(n)
+        Auxillary Space Theta(d)
+    Best Algo:
+        void lr(int arr[],n,d){
+            reverse(arr,0,d-1)
+            reverse(arr,d,n-1)
+            reverse(arr,0,n-1)
+        }
+        void reverse(arr,low,high){
+            reverse the array
+        }
+        Theta(n) Time
+        Aux Space Theta(1)
+Leader of an array:
+    All elements on right side are greater
+    Naive Soln:
+        Theta(n**2)
+        Go through each element if one of the next elements come out to be greater than that, we then say that the element is not a leader.
+    Smart Soln:
+        Traverse from the last ele. store the rightmost ele in ans array. If the next ele is greater, then append that element into the array and do the same things till we reach the first ele of the array. Then you can perform reversing of the array to get the required output.
+        Theta(n)
+
+Maximum diff problem:
+    Naive Soln: Theta(n**2)
+        Traverse through each ele, if the difference is more, then update the max, else continue
+    Best Soln: Theta(n)
+        res = arr[1]-arr[0], minval = arr[0]
+        for j in range(len(arr)):
+            res= max(res,arr[j]-minval)
+            minval = min(minval,arr[j])
+
+Stock Buy and Sell problem:
+    Naive Soln: Theta(n**2)
+        go through each ele and see if the next ele is more, if less dont buy, if the next element is more and the next to that is greater, sell it to maximize
+    Best Soln: Theta(n)
+        go through each ele once and see if the next price is greater, if yes, then add to the result.
+    
+Trapping Rain Water:
+    Naive Soln: Theta(n^2)
+        Traverse through middle bars.. find rmax and lmax.. find minimum of lmax-rmax and then subtract the height of current bar
+    Best Soln: Theta(n) Aux Space:Theta(n)
+        Get the left most max of each element by traversing through the left. Traverse through the right side and get the max from the right side. Then get the minimum of the lmax and rmax and subtract from arr[i]
+
+Maximum Consecutive 1s:
+    Naive:
+        Theta(n**2): Traverse through each element and compare until arr[i]=0
+    Best Soln: Theta(n)
+        Theta(n): list implementation
+
+Maximum Subarray Sum:
+    Naive Soln:
+        res=arr[0]
+        compare res with curr+arr[i]
+    Efficient Soln: O(n)
+        Traverse once and keep comparing the last res. Reusing and save it in a list.
+
+Longest Even Odd Subarray:
+    Naive: Theta(n**2)
+    Best: O(n):
+        Same as Maximum Subarray Sum: but we check if both the elements are odd and even alternatively.
+
+Maximum Sum of the Circular Subarray:
+    Naive: O(n**2)
+    Best Soln: O(n): The elements which contribute to the maximum sum are arranged such that wrapping is there. Examples: {10, -12, 11}, {12, -5, 4, -8, 11}. In this case, we need to remove some (0 or more) middle elements with minimum sum. So the idea is to use Kadane's algorithm again to find the minimum sum subarray.  Instead of writing a separate function for minimum sum subarray, we can change signs of elements and call same maximum sum function again.
+Majority element:
+    Moore Mootingon's Algo:
+        Divide the array in two sets, one which has crossed out elements(different elements) and the one which do not. The first set will have no Majority ele
+
+Window Sliding Technique:
+    for x in range(0,k):
+        curr_sum+=arr[i]
+    int max_sum = curr_sum
+    for i in range(k,n):
+        curr_sum+= arr[i]-arr[i-k]
+        max_sum = max(max_sum,curr_sum)
+    return max_sum
+
+    For Subarray sum with positive integer
+        keep adding until it is greater. When greater, remove from the first element
+
+    IMPORTANT QUESTION: Count distinct elements in Subarray of size k.. requires knowledge of both Hashing and Window Sliding
+
+Prefix sum in getsum:
+    Naive Soln: O(n)
+    To get prefixsum:
+        s=[]
+        sum = 0
+        for x in range(len(arr)):
+            s.append(sum+arr[x])
+        then do s[2]-s[0] to getsum(0,2)
+    Equilibriam point:
+        if there exists a point where sum before it == sum after it
+        Naive Soln: O(n**2)
+        Better Soln O(n),O(n): Compute prefixsum and suffixsum and compute if both are Equal
+        Best Soln O(n),O(1): compute total sum and do prefixsum and see if totalsum -prefixsum == curr_ele 
+        
