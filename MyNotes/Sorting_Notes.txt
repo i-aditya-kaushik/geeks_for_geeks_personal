@@ -1,0 +1,214 @@
+sort in C++:
+    Quick sort for sort function... using heap if the iterations become more.. for small arrays, insertion sort
+    #include<algorithm>
+    ascending:
+    sort(arr,arr+n)
+    descending:
+    sort(arr,arr+n,greater<int>)
+
+    vector in c++:
+        vector<int> v = [5,7,20,10]
+        sort(v.begin(),v.end())
+        sort(v.begin(),v.end(),greater<int>)
+    wrt a function in b:
+        struct Point{
+            int x,y;
+        }
+        bool mycomp(Point p1,Point p2){
+            //return(p1.x<p2.x) //wrt x val inc
+            return(p1.y>p2.y) //wrt y value desc
+        }
+
+        int main(){
+            Point arr = {{3,4},{2,3}};
+            sort(arr,arr+n,mycomp)
+            //sorts wrt the first point in array
+        }
+
+sort in java:
+    Uses Merge sort. When array size is small, uses insertion sort
+    Arrays.sort()
+        for arrays
+        Arrays.sort(arr,Collections.reverseOrder())
+        Arrays.sort(arr,1,4) //does not change 1,4 index
+    Collections.sort()
+        for lists,vector,arraylist
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        a.add(10);
+        a.add(5);
+        Collections.sort(a)
+        Collections.sort(a,Collections.reverseOrder())
+
+sort in Python:
+    Python uses the same sorting technique as java. The technique is called timsort(a sorting algo based on insertion sort and Merge sort)
+    You know the rest.
+    for sorting wrt an element:
+        sorted_list = sorted(list_not_sorted, key=lambda x:x[1])
+
+Stability in sorting algorithm
+    Stability: if two values of sorting criteria is same, then index of recurring elements is same as the original order
+    Stability is only useful when we have integer values
+    Stable algorithms:
+        Bubble Sort, insertion sort, Merge sort
+    Unstable algorithms:
+        Heap Sort, Selection Sort, Quick Sort
+Selection Sort: in "", changes Time Complexity: O(n^2)
+    18 4 3 8 3 (swaps the last element with max element)
+    3 4 3 8 "18"
+    3 4 3 "8 18"
+    3 3 "4 8 18"
+    3 "3 4 8 18"
+    "3 3 4 8 18"
+    Since the order changes, it is Unstable
+Insertion sort: Best for small arrays( used as a hybrid with merge nowadays as timsort)
+    Space: O(1)
+    Algo: Start from 2nd element
+    50 20 40 60 10 30
+    "20 50" 40 60 10 30 j=i-1, shift and make j-- until the trend of elements increase and val of j is >=0, then swapping both elements when the condition fails
+    "20 40 50" 60 10 30
+    "20 40 50 60" 10 30
+    "10 20 40 50 60" 30
+    "10 20 30 40 50 60"
+    Best case: O(n)
+    Worst Case: O(n^2)
+Merge Sorts: Divide and Conquer(Stable):
+    Theta(nlogn)
+    Merge two sorted arrays:
+        a = [10,15,20,40]
+        b = [5,6,6,10,15]
+
+        Algo: O((m+n)*log(m+n))
+            merge(int a[], int b[],int m,int n):
+                int c[m+n]
+                for i in range(m): //O(m)
+                    c[i]=a[i]
+                for j in range(n)://O(n)
+                    c[j+m]=a[i]
+                sort(c,c+m+n) //O(log(m+n))
+                for x in arr:
+                    print(str(x)+" ",end="")
+        Best approach: O(m+n)
+            i = 0
+            j = 0
+            while(len(c)!=n+m):
+                if(a[i]>=b[i]):
+                    c.append(a[i])
+                    i+=1
+                elif(a[i]<b[i]):
+                    c.append(b[j])
+                    j+=1
+                if(i==len(a)-1):
+                    for x in range(j,len(b)):
+                        c.append(b[x])
+                    return(c)
+                if(j==len(b)-1):
+                    for x in range(i,len(a)):
+                        c.append(a[x])
+                    return(c)
+            return c
+    Algorithm of merge:
+        void mergesort(int arr[],int l,int r){
+            if(r>l){
+                int m = l+(r-l)/2
+                mergesort(arr,l,m)
+                mergesort(arr,m+1,r)
+                merge(arr,l,m,r)
+            }
+        }
+        void merge(int a[],int l,int m,int h){
+            n1 = m-l+1,n2=r-m
+            for x in range(n1):
+                left[x] = arr[l+x]
+            for j in range(n2):
+                right[j] = arr[m+1+j]
+            int i=0,j=0,k=l
+            while(i<n1 and j<n2):
+                if(left[i]<=right[i]):
+                    arr[k++]=left[i++]
+                else:
+                    arr[k++]=right[i++]
+            while(i<n1):
+                arr[k++]=left[i++]
+            while(j<n2):
+                arr[k++]=right[j++]
+        }
+        Time Complexity:Theta(log(n,2))*Theta(n) = Theta(nlogn)
+        Auxillary Space = Theta(n)
+    Intersection of two sorted arrays: Theta(nlogn)
+        merge function of merge sort..works better for sorted arrays.. otherwise hashing is better
+    Union:
+        merge function: O(m+n)
+            simple two pointer implementation
+    Count Inversions:
+        Inversion:
+            i<j
+            arr[i]>arr[j]
+            Algo: O(nlogn),O(n)
+                Merge Sort+Count Inversions
+                void mergesort(int arr[],int l,int r){
+                    if(r>l){
+                        int m = l+(r-l)/2
+                        mergesort(arr,l,m)
+                        mergesort(arr,m+1,r)
+                        countandmerge(arr,l,m,r)
+                    }
+                }
+                void merge(int a[],int l,int m,int h){
+                    n1 = m-l+1,n2=r-m
+                    res=0
+                    for x in range(n1):
+                        left[x] = arr[l+x]
+                    for j in range(n2):
+                        right[j] = arr[m+1+j]
+                    int i=0,j=0,k=l
+                    while(i<n1 and j<n2):
+                        if(left[i]<=right[i]):
+                            arr[k++]=left[i++]
+                        else:
+                            arr[k++]=right[i++]
+                            res+=n1-i
+                    while(i<n1):
+                        arr[k++]=left[i++]
+                    while(j<n2):
+                        arr[k++]=right[j++]
+                    return res
+                }
+    Partition a given array
+        Naive:
+            three O(n) loops
+            For first loop, check if it is lesser, if yes, append to result array
+            For second, traverse and check if equal
+            For third, traverse and check if greater
+        Lomuto: O(n),O(1)
+            Let the pivot be last element for simplicity
+            traverse.. as u traverse, if element is lesser, i+=1 and include it in the >pivot section, if greater, increase j+=1 and put the element in pivot>=p.. if we reach the last element, then swap it with i+1 location since anyway it has an element greater than pivot so we can swap it
+            If pivot is not the last element:
+                swap the pivot element and the last element then do the same Lomudo method
+        Hoare Partition: O(n),O(1) Not stable.. hence Quick sort is also Unstable
+            pivot is assumed at position 1
+            i=0 and j=7
+            i+=1 and j-=1 and keep on swapping wrt the requirements
+            the pivot might not be in the middle when we do hoarse Partition
+    Quick Sort uses Partition(Naive:(Gives Stability,but time is more),Lomudo,Hoare):
+        Worst case: O(n**2) = Theta(n**2)+Theta(n)
+        Best case: Theta(nlogn)
+        Average Case: O(nlogn)
+        Divide and Conquer.
+        Recommended for arrays:
+            Tail Recursive
+            In Place: No aux mem req
+            Cache Friendly: No aux mem req
+            Average case: Theta(nlogn)
+        void qsort(int arr[],int l,int h){
+            if(l<h){
+                int p = Partition(arr,l,h)
+                qsort(arr,l,p-1)
+                qsort(arr,p+1,h)
+            }
+        }
+
+        Space: Not in Place... Lomudo and Hoare methods are in Place
+        Worst Case: Theta(n)
+        Best Case: Theta(logn)
+        Average: 
+
