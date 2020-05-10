@@ -1,0 +1,66 @@
+Searching:
+1. Binary Search and problems based on it:
+    if array is unsorted:
+        go through each of the element and check if n==arr[x]
+        Time Complexity: O(N)
+    Binary Search: For sorted:
+        go for the middle element, if middle>search, then search for middle for the part after the middle part, else previous part
+        Time Complexity:log(n)
+        Options:
+            1. Recursive method
+            2. Iterative method
+        1. Recursive:
+        bool binarySearch(int arr[],int l, int h,int x)
+            base case:
+                mid = (l+h)/2
+                better mid point which wont do overflow:
+                    mid = (l+(h-l))/2
+            if(arr[mid]==x):
+                return mid
+            if(arr[mid]>x):
+                return(binarySearch(arr,l,mid-1,x))
+            else:
+                return(binarySearch(arr,mid+1,h,x))
+        2. Iterative:
+            Simple Looping
+    Get the first occurence of x using binary search
+        if(arr[mid]==x and (mid==0 or arr[mid-1]!=x)):
+            return mid
+    Get the number of occurences of x using binarySearch
+        Time Complexity: O(logn+k) where k is occurences.
+        Check if the right to this or left to this has the same element.. add 1 to sum
+        Same for number of 1s in an array
+    For an infinite sized array:
+        if it is at index 0:
+            return 0 
+        else:
+            return(binarySearch(arr,l*2,x))
+    An array is sorted and rotated, find if an element x is present or not
+        go to the middle element, check if the left element is lesser and right is lesser
+        if yes then middle is pivot
+        else keep on comparing with corner elements and proceed
+    Applied on an unsorted element only when we have to find the peak element:
+        compare the left and right and go to a place wherever it is more
+    With Binary Search, we can find the sqrt in logn time:
+
+Two pointer Approach:
+    given an unsorted array, find the sum of two elements and check if it equals x: BEST APPROACH: HASHING
+    if array is sorted, use two pointer approach: right pointer and left pointer
+        O(N)
+    Triplets sum problem:
+        if(isPair(a,i+1,n-1,x-a[i]))
+            return true
+    Hashing is not ideal for auxillary space
+
+Majority element:
+    Naive: O(n^2)
+    Best Soln:
+        Moore Mootingon's Algo:
+            Divide the array in two sets, one which has crossed out elements(different elements) and the one which do not. The first set will have no Majority ele
+        For eg: arr = [6,8,3,8,8]
+        for i =0: count = 1, res = 0
+        for i =1: count = 0
+                  count = 1, res = 1
+            i=2 : count = 0 , res = 2
+            i=3 : count = 1 , res = 3
+            i=4 : count = 2    

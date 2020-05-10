@@ -1,0 +1,16 @@
+Lecture 1: Intro to Recursion
+    For Factorial:
+    fact(n):
+        if(n==0):
+            return(1)
+        return(n*fact(n-1))
+Lecture 2: Problems Using Recursion
+    i/p = 5 
+    o/p = 5 4 3 2 1 
+    get without loop
+
+    Tail Recursive: when we consider the Recursion after we have already provided all the operations and check before the Recursive function can execute
+The Rest Problems are coding ones
+
+
+    
