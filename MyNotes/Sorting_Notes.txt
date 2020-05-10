@@ -210,5 +210,223 @@ Merge Sorts: Divide and Conquer(Stable):
         Space: Not in Place... Lomudo and Hoare methods are in Place
         Worst Case: Theta(n)
         Best Case: Theta(logn)
-        Average: 
+    Choice of pivot and worst case of Quick sort:
+        qsort performance is worst when it is already sorted.
+        generate a random pivot: this is done usually.
+    Tail Call Elimination qsort:
+        void qsort(int arr[],int l,int h){
+            Begin:
+            if(l<h){
+                int p = Partition(arr,l,h)
+                qsort(arr,l,p-1)
+                l=p+1
+                goto Begin
+            }
+        }
+Kth smallest element:
+    Naive:
+        Sort and then return [kth ele]
+    Better Soln:
+    void qsort(int arr[],int n,int k){
+        l=0,r=n-1
+            while(l<=r){
+                int p = Partition(arr,l,r)
+                if(p==k-1):
+                    return p;
+                elif p>k-1:
+                    r=mid-1
+                else:
+                    r=mid+1
+            }
+        }
+Chocolate Distribution Problem:
+    Sort the array.
+    then do min(arr[2]-arr[0],arr[3]-arr[1],arr[4]-arr[2])
+Sort an Array with two types of ele:
+    positives on right side and -ves on left
+    pivot = 0
+    Lomudo Partition
+Sort an Array with 3 types of ele:
+    save three vars i,j,k and then initialize them with 0. traverse once and do i+=1 if ele belongs to grp 1
+Merge Overlapping intervals:
+    Naive Soln:
+        O(n**3) n**2 = comparing and making intervals,n = deleting if required
+    Better Soln: 
+        Sort wrt start time and check if a[x-1].end < a[x].start
+Cycle Sort:
+    Used when we have to do minimum writes in a memory
+    Worst case of O(n**2)
+    Not stable and inplace
+    Algo:
+        count the number of smaller elements than x and give the i+1th location to element at ith location
+        Refer picture to understand better.
+Counting Sort:
+    Linear time algo, when the range between the elements is small
+    O(n+k)
+    arr = [1,4,4,1,0,1]
+    The naive solution is not stable
+    The efficient solution is to go for the general purpose implementation of countsort.
+    find count of each element, which is stable.
+    say arr = [1,4,4,1,0,1]
+    count = [1,3,0,0,2]
+    then modify the count by doing arr[x]+=arr[x-1]
+    count = [1,4,4,4,6]
+             | | | | |
+             0 1 2 3 4
+    traverse from the right to maintain Stability
+    for the output:
+        we traverse arr from the right: the rightmost ele is 1
+        count[1]=4
+        => The index(1) = 4-1 = 3
+        Now reduce count[1] by 1
+        count = [1,3,4,4,6]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ _ , _ , _ , 1 , _ , _ ]
+        [1,4,4,1,0,"1"]
 
+        count = [0,3,4,4,6]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ 0 , _ , _ , 1 , _ , _ ]
+        [1,4,4,1,"0","1"]
+
+        count = [0,2,4,4,6]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ 0 , _ , 1 , 1 , _ , _ ]
+        [1,4,4,"1","0","1"]
+
+        count = [0,2,4,4,5]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ 0 , _ , 1 , 1 , _ , 4 ]
+        [1,4,"4","1","0","1"]
+
+        count = [0,2,4,4,4]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ 0 , _ , 1 , 1 , 4 , 4 ]
+        [1,"4","4","1","0","1"]
+
+        count = [0,1,4,4,4]
+                 | | | | |
+                 0 1 2 3 4 
+        output = [ 0 , 1 , 1 , 1 , 4 , 4 ]
+        ["1","4","4","1","0","1"]
+
+    Important points:
+        Not a comparison based algo
+        Theta(n+k),Theta(n+k)
+        Stable
+        Used as a subroutine in Radix sort.
+        Used only when the max difference between the elements(k) is really low. Otherwise can not be used
+Radix Sort:
+    Counting sort takes a back turn if k~n^2. Then counting sort becomes worse than the standard algo
+    Radix works for larger range.
+    find the number of digits in the largest number
+    Then compare the last digit(ones place) of all the numbers
+
+    319,212,6,8,100,50
+
+    initializing step:
+    319,212,006,008,100,050
+
+    Step1:(If 2 numbers have same dig, then do lexicographic implementation)
+    100,050,212,006,008,319
+    Step2:
+    100,006,008,212,319,050
+    Step3:
+    006,008,050,100,212,319
+
+Bucket Sort:
+    Used for large numbers or small/floating point numbers
+    Bucket Sort gives Linear time when data is uniformly Distributed
+    Step1:
+        Make buckets for the range.
+        For eg, say 
+        arr = 20,88,70,85,75,95,18,82,60
+    
+    |   |     
+    |   |
+    | 18|  0-19
+    |   |
+    |___|
+
+    |   |
+    |   |
+    | 20|  20-39
+    |   |
+    |___|
+
+    |   |
+    |   |
+    |   |  40-59
+    |   |
+    |___|
+
+    |   |
+    | 75|
+    | 70|  60-79
+    |   |
+    |___|
+
+    |82 |
+    |88 |
+    |85 |  80-99
+    |80 |
+    |___|
+
+    Step2:
+    |   |     
+    |   |
+    | 18|  0-19
+    |   |
+    |___|
+
+    |   |
+    |   |
+    | 20|  20-39
+    |   |
+    |___|
+
+    |   |
+    |   |
+    |   |  40-59
+    |   |
+    |___|
+
+    |   |
+    | 75|
+    | 70|  60-79
+    |   |
+    |___|
+
+    |80 |
+    |82 |
+    |85 |  80-99
+    |88 |
+    |___|
+
+    Step3:
+        Print arr
+    
+    Linear Time to sort the buckets.. But if it is not Distributed, it turns into O(n^2) since the bucket will required to be sorted with insertion sort
+
+Overview of Sorting algo:
+    1. Binary Array: Partition of Quick Sort(Naive for Stable, Rest for Unstable but good in terms of time required)
+    2. Arrays of sign n and small ranged values (Counting Sort)
+    3. If range is bigger (Radix)
+    4. Data is uniformly Distributed (Bucket Sort)
+    5. When memory writes are costly (Selection sort,Cycle sort)
+    6. When adjacent swaps are allowed (Bubble Sort:Works from left to right,Cocktail Sort: Works from both the sides)
+    7. When array size is small(insertion sort is best, Selection sort is also advisable)
+    8. When extra memory is small (Shell Sort: n(logn)^2)
+    9. general purpose:
+        Merge Sort: Stable
+        Heap Sort
+        Quick Sort: Fastest
+    10. hybrid algorithms
+            timsort (Insertion+Merge): Python
+            Intrasort (Quick Sort:usually,Heap Sort,Insertion): C++ 
+            To implement stable sort in c++, use stable_sort
