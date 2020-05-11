@@ -1,0 +1,30 @@
+Snake Pattern:
+    if row number is even:
+        then we print from left to right
+    else:
+        reverse
+
+Boundary Traversal:
+    Print the entire first row and then the last colomn and then the last row in reverse and then the first colomn in reverse
+    Handle one row and colomn explicitly
+
+Transpose:
+    Best Approach:
+        Swap the upper diagonal elements with lower diagonal elements
+
+Rotate by 90 Degree:
+    Best Approach:
+        Make the Transpose
+        reverse colomn
+
+Print the matrix in spiral form:
+    4 variables: top, right,botton and left
+    after we have traversed first row, top+=1
+    when we print last colomn, right--
+    when we print last row, bottom --
+    when we print the first colomn, left++
+    repeat this until left<=right and top<=bottom
+
+Search row wise and colomn wise sorted matrix:
+    Begin from top right colomn, if lesser, then move left until it is greater or equal.. when lesser, traverse down
+    
