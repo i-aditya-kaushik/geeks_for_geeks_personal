@@ -1,0 +1,444 @@
+Hashing Notes
+    1. Used to implement set of keys.. Does search,insert and delete in O(1)
+    time.
+
+    2. 
+    Arrays for sorted:
+        O(logn): search
+        O(n): insert
+        O(n): delete
+    Arrays for unsorted:
+        O(1): insert and delete
+        O(n): search
+    3. BST: However BST is extremely useful for closest values(O(logn) with BST)
+        O(logn): search,insert and delete
+    4. Hashing is not used for:
+        Finding Closest values: AVL Trees or Red Black Trees
+        Sorted Data: AVL Trees or Red Black Trees
+        Prefix searching: Trie
+    5. Applications of Hashing:
+        Dict
+        Database indexing
+        Cryptography
+        Cache
+        Symbol Tables in Compilers/Interpreters
+        Routers
+        Getting data from Databases
+    6. Direct Address Table:(DAT)
+        Boolean Array of size n. 
+        So if n is 5:
+        0 0 0 0 0
+        | | | | |
+        1 2 3 4 5
+        This is initial config
+
+        So if we do the following:
+        insert(3)
+        insert(2)
+
+        0 1 1 0 0
+        | | | | |
+        1 2 3 4 5
+
+        So we O(1) time we are able to insert and similarly search and delete
+        
+    7. Problems with DAT
+        Floating point 
+        Large numbers
+        Strings/Address/Any alphanumerical val
+    
+    Hashing:
+        Using a Hash function, we use the large values and convert large keys to small values and use it as a key.
+
+        How shud functions work?
+            Shud map large key to small key
+            Shud generate val from 0 to m-1
+            Shud be fast o(1) for int and o(len) for len of Strings
+            Shud uniformly distribute large keys in Hash Table Slots
+        
+        Example of Hash functions
+            h(large_key)= large_key % m (Usually close to a prime number not close to 2^x or 10^x)
+            For strings, weighted sum:
+                str[] = 'abcd'
+            (str[0]*x^0 + str[1]*x^1....str[n-1]*x^(n-1))% m 
+            Universal Hashing:
+                Group of hash function, randomly choose one of those hash functions.
+        
+        Collision handling:
+            if 2 values have the same keys, then we have collision.
+            Perfect Hashing gives no collisions
+            If we do not know keys in advance, then we have collisions
+                We use Chaining:
+                    Method with uses array of linked lists
+                    If collision happens, we insert at the end of the list
+                    We choose m such that it is prime and closest to the size of array
+                Performance of Chaining:
+                    m = no of slots in Hash Table
+                    n = no of keys inserted
+                    Load factor alpha = n/m (we need a small alpha to make less collisions)
+                    
+                    Expected Chain lengths = alpha if it is uniformly distributed
+                    Expected time to search,insert and delete = O(1+alpha)
+        Data Structures for chains:
+            linked List: search,delete and insert: O(l)
+            Dynamic Sized arrays: vector in c++, arraylist in java,list in py
+            Self balancing BST(AVL Tree,Red Black Tree) O(log l) for searching,delete and insert
+        
+        Implementation of Chaining
+
+        struct MyHash{
+            int BUCKET;
+            list <int> *table;
+            MyHash(int b)
+            bool search(int key)
+                int i = hash(key)
+                for x:table[i]:
+                    if x==key:
+                        return key
+                    return false
+            void insert(int key){
+                int i = hash(key)
+                table[i].push_back(key)
+            }
+            void remove(int key){
+                int i = hash(key)
+                table[i].remove(key)
+            }
+        }
+
+        Open Addressing:
+            Cache Friendly
+            Linear Probing:
+                Same hash function, When we have collision, we linearly search for next empty slot.
+                If by chance the size exceeds, we circularly search until a free slot is found
+            search:
+                We use hash function on the value, then we linearly search until we see an empty value or the desired value. If all the values are filled completely, we stop when we again reach hash%m circularly
+            Delete:
+                we search and then remove. After removal, mark the slot as deleted, and do not stop traversal later
+            Clustering:
+                A problem with linear probing.. 
+            Clustering happens we use this function: hash(key,i) = (h(key)+i)%7
+            Quadratic Probing: Clustering is solved by Double Hashing: hash(key,i) = (h(key)+i**2)%7 (Problem: Secondary Clustering)
+            Double Hashing:
+                hash(key,i) = (h1(key) + i*h2(key))%m
+            2 Hash functions:
+                If h2(key) is relatively prime, avoids Clustering
+                distributes uniformly
+                Less Clustering or collisions
+                  
+            Algo of doublehashing:
+                if table s full:
+                    return error
+                probe = h1(key)
+                offset = h2(key)
+                while(table[probe] is occupied):
+                    probe = (probe+offset)%m
+                    table[probe] = m
+            Performance of Double Hashing:
+                apha = n/m
+                Assumption: Every probe sequence looks at a random location
+                1-alpha if a fraction of table is empty
+                Expected of probes req: 1/(1-alpha)
+            Implementation of Open Addressing:
+                struct MyHash{
+                    int *arr;
+                    int cab,size;
+                    MyHash(int c){
+                        cap = c;
+                        size = 0;
+                        arr = new int[cab];
+                        for i in range(cab):
+                            arr[i] = -1
+                    }
+                    int hash(int key){
+                        return key%cab;
+                    }
+                    bool search(int key){
+                        if(size==0){
+                            return false
+                        }
+                        int i = hash(key)
+                        j = i
+                        while(arr[i]!=1 and i!=j){
+                            if(arr[i]==key) return True
+                            i = (i+1)%cap
+                        }
+                    }
+                }                    
+            void insert(int key){
+                if(size>=cab){
+                    return
+                }
+                int i=
+                for i=hash(key);arr[i]!=-1 and arr[i]!=-2 and arr[i]!=key,i=i+1%cab
+                }
+            }
+
+            boid remove(int key){
+                int i = hash(key)
+                j=i
+                while(arr[i]!=1 and i!=j){
+                    if(arr[i]==key){
+                        arr[i]=-2
+                        size-=1
+                        break
+                    }
+                    i= (i+1)%cab
+                }
+            }
+            In reality, we use null and dummy node to implement hashing since -1 and -2 can be used as keys
+
+            Open Addressing vs Chaining Addressing:
+                Chaining:
+                    Hash Table never fills
+                    Less sensitive to Hash functions
+                    Poor Cache Performance
+                    Extra Space for links
+
+                    (1+alpha)
+
+                Open Addressing:
+                    Table may become full and resizing becomes mandatory
+                    Extra care req for Clustering
+                    Cache Friendly
+                    Extra Space might be needed to achieve same Performance as Chaining
+
+                    Performance: 1/(1-alpha)
+                Unordered set in c++ stl 
+                int main(){
+                    unordered_set <int> s;
+                    s.insert(10);
+                    s.insert(20);
+                    s,insert(30)
+                    for(x:s){
+                        cout<<x<<" ";
+                    return 0;
+                    }
+                    for(auto it=s.begin(); it = s.end(); it++){
+                        cout<<(*it)<<" ";
+                    }
+                    s.clear();
+                    s.size();
+                    if(s.find(15)==s.end()){
+                        cout<<"Found";
+                    }
+                    if(s.count(15)){
+                        cout<<"Found";
+                    }
+                    auto it = s.find(10)
+                    s.erase(it);
+                    s.erase(15);
+                    s.erase(s.begin(),s.end())
+                    cout<<s.size() ---> 0
+                }
+
+                Uses Hashing.. So insert,delete and search as O(1)
+            Applications of unordered_set:
+                We can use anywhere when we need following operations 
+            
+            Unordered map in C++:
+                Based on Hashing
+                
+                unordered_map<string, int> m;
+                m["gfg"] = 20;
+                m["ide"] = 10;
+                m.insert({"abc",15})
+                for(auto x: m){
+                    cout<< x.first<<":"<<x.second<<endl
+                }
+                if(m.find("ide")!=m.end()){
+                    cout<<"Found"<<endl;
+                }
+                for(auto it=m.begin(),it!=m.end(),it++){
+                    cout<< (it->first) <<" "<< (it-> second) <<endl;
+                }
+                if(m.count("ide")>0){
+                    cout<<"Found";
+                }
+                cout<<m.size()<<endl;
+                m.erase("ide")
+                m.erase(m.begin(),m.end())
+
+                begin,end,size,empty: O(1) worst case
+                count,find,erase,insert: O(1) average
+
+Count Distinct elements:
+
+    int countDist(int arr[],int n){
+        unordered_set <int> s;
+        for(int i =0; i<n;i++){
+            s.insert(arr[i])
+        }
+        return s.size;
+    }
+
+Count frequencies of array elements:
+
+    int countfreq(int arr[], int n){
+        unordered_map <int,int> s;
+        for(int i =0;i<n;i++){
+            s[arr[i]]+=1;
+        }
+        for(auto it:s){
+            cout<<x.first<<" "<<x.second<<endl;
+        }
+    }
+    Time: O(n)
+Intersection of two arrays:
+    Distinct common elements
+    Efficient solution:
+        int Intersection{
+            unordered_set<int> s;
+            for(int i=0;i<m;i++){
+                s.insert(a[i])
+            }
+            int res = 0;
+            for(int j = 0;j<n;j++){
+                if(s.find(b[i])!= s.end()){
+                    res++;
+                    s.erase(b[i])
+                }
+            }
+            return res;
+        }
+Union of Two unsorted Arrays:
+    int union{
+            unordered_set<int> s;
+            for(int i=0;i<m;i++){
+                s.insert(a[i])
+            }
+            for(int j = 0;j<n;j++){
+                s.insert(b[j]);
+            }
+            return s.size();
+        }
+Unsorted array... pair with given sum
+
+    for(int i =0;i<n;i++){
+        if(s.find(sum-arr[i])!=s.end()){
+            return true;
+        }
+        s.insert(arr[i])
+    }
+
+Subarray with zero sum:
+    {
+    unordered_set<int> us;
+    int prefix_sum = 0;
+    us.insert(0);
+    for(int i = 0; i < n; i++)
+    {
+        prefix_sum += arr[i];
+        if(us.find(prefix_sum) != us.end())
+          return 1;
+        if(prefix_sum==0){
+            return 1;
+        }
+        us.insert(prefix_sum);
+    }
+    return 0;
+    }
+
+Subarray with given sum:
+    {
+    unordered_set<int> us;
+    int prefix_sum = 0;
+    us.insert(0);
+    for(int i = 0; i < n; i++)
+    {
+        prefix_sum += arr[i];
+        if(us.find(prefix_sum-sum) != us.end())
+          return 1;
+        if(prefix_sum==sum){
+            return 1;
+        }
+        us.insert(prefix_sum);
+    }
+    return 0;
+    }
+
+Longest Subarray with given sum:
+    {
+        int prefix_sum = 0;
+        unordered_set<int,int> us;
+        res = 0
+        for(int i = 0; i < n; i++)
+        {   
+            prefix_sum += arr[i];
+            if(prefix_sum==sum){
+                res=i+1
+            }
+            if(us.find(prefix_sum)==us.end()){
+                us.insert(prefix_sum,i)
+            }
+            if(us.find(prefix_sum - sum) != us.end())
+                res = max(res,i-m[prefix_sum-sum])
+        }
+        return res;
+    }
+
+IMPORTANT: Longest Subarray with equal number of 0 and 1:
+    [1,0,1,1,1,0,0]
+    o/p = 6
+    {
+        for(int i = 0; i < n; i++)
+            arr[i] = (arr[i] == 0) ? -1 : 1;
+            
+        unordered_map<int, int> ump;
+        int sum = 0, maxLen = 0;
+        for(int i = 0; i < n; i++)
+        {
+            sum += arr[i];
+            if(sum == 0)
+            maxLen = i+1;
+            
+            if(ump.find(sum+n) != ump.end())
+            {
+                if(maxLen < i - ump[sum+n])
+                maxLen = i - ump[sum+n];
+                
+            }
+            else ump[sum + n] = i;
+        }
+            
+        return maxLen;
+    }
+
+Largest common span with same sum in two binary arrays:
+    int arr[n]; 
+	for (int i=0; i<n; i++) 
+	arr[i] = arr1[i] - arr2[i]; 
+	
+	unordered_map<int, int> hM; 
+
+	int sum = 0;	 // Initialize sum of elements 
+	int max_len = 0; // Initialize result 
+
+	for (int i = 0; i < n; i++) 
+	{ 
+		sum += arr[i]; 
+
+		if (sum == 0) 
+			max_len = i + 1; 
+
+		if (hM.find(sum) != hM.end()) 
+		    max_len = max(max_len, i - hM[sum]); 
+			
+		else  
+			hM[sum] = i; 
+	} 
+
+	return max_len; 
+
+Longest consecutive subsequence
+    for(int i = 0;i<n;i++){
+        if(arr[i]-1 is present){
+            curr = 1
+            whiel(h contains arr[i]+curr)
+                curr++
+            res= max(res, curr)
+        }
+    }
+
+Count Distinct elements in each window:
+    Refer picture
