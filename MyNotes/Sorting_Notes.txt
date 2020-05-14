@@ -4,7 +4,7 @@ sort in C++:
     ascending:
     sort(arr,arr+n)
     descending:
-    sort(arr,arr+n,greater<int>)
+    sort(arr,arr+n,greater<int>())
 
     vector in c++:
         vector<int> v = [5,7,20,10]
