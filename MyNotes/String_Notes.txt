@@ -1,0 +1,314 @@
+String Notes
+
+    1. Definition: String s = "geeksforgeeks";
+    2. cout<<s.find(geek);//returns index of first occurance
+    3. cout<<s.substr(1,2); //ee [in the frmat of starting ind to length]
+    
+    Anagram or not:
+        Better Soln:
+            O(n):
+            append first.. for second string remove.. if len is 0.. then Anagram
+    Repeating character's least index
+        Better Soln:
+            O(n):
+        int firstRepeating(string str){
+            int res = INT_MAX;
+            int fi[256] = [-1,-1,-1...,-1]
+            for(int i=0;i<str.length();i++){
+                if(fi[str[i]]==-1){
+                    fi[str[i]]=i;
+                else{
+                    res = min(res,fi[str[i]]);
+                }
+                }
+                if(res==INT_MAX)?-1:res;
+            }
+        }
+
+        Best Soln:
+        int firstRepeating(string str){
+            int res = INT_MAX;
+            int fi[256] = [-1,-1,-1...,-1]
+            for(int i=str.length();i>=0;i--){
+                if(fi[str[i]]==-1){
+                    fi[str[i]]=i;
+                else{
+                    res = fi[str[i]];
+                }
+                }
+                if(res==INT_MAX)?-1:res;
+            }
+        }
+    Left most character that does not Repeat:
+        int firstNonRepeat(string str){
+            int res = INT_MAX;
+            int fi[256]=[-1,-1...-1]
+            for(int i=0;i<str.length();i++){
+                if(fi[str]==-1){
+                    fi[str]=i;
+                }
+                else{
+                    fi[str[i]]=-2
+                }
+            }
+        }
+    find the lexicographic rank of it in O(n) time:
+        O(n):
+            int lexRank(str string){
+                int res = 1;
+                int n=str.length();
+                int mal = fact(n);
+                int count[256]=[0];
+                for(int i=0;i<n;i++){
+                    count[str[i]]++;
+                }
+                for(int i=1;i<256;i++){
+                    count[i]+=count[i]+count[i-1]
+                }
+                for(int i=0;i<n;i++){
+                    mul = mul/(n-i);
+                    rank = rank+count[str[i]]*mul;
+                }
+                for(int k=str[i];j<256;j++){
+                    count[j]--;
+                }
+                return(rank);
+            }
+    Give a text string and pattern string, find if a permutation of the pattern exists in the text
+        O(n)
+        Sliding window strat+
+        bool isAnagrampresent(string txt;string patt){
+            for(int i=0;i<patt.length();i++){
+                countText[txt[i]]++;
+                countPat[pat[i]]++;
+            }
+            for(int i=pat.length();i<txt.length();i++){
+                if(are)
+            }
+        }
+
+    boolareRotations(string s1, string s2){
+        if(s1.length()!=s2.length()){
+            return false;
+        s1= s1+s2;
+        return(sl.find(s2)!=string::nps)
+        }
+    }
+
+    Rabin Karp Algorithm:
+    KMP: Better Algo as compared to RK Algo O(n) worst case: Preprocessing
+    Suffix Tree: When the text is fixed.
+
+    Rabin Karp Algo:
+        slide one by one and give a hash value for each of the characters.. say a:1,b:2,c:3,d:4:
+            if(match the hash_value, then we match the individual characters)
+            if the individual characters dont match, then it is a spurious hit and we dont increment the result
+            if the individual characters match, then the result is incremented.
+            t[i+1]=t[i]+txt[i+m]-txt[i]
+
+            Make sure that the spurious hit is minimized and the %q is taken in such a way that the number of values are distributed and the hits should be minimized
+        O((n-m+1)*m)
+    LPS Array Construction
+        Proper Prefix and Proper Suffix
+        "abcd"
+        Proper Prefix: "" "a" "ab" abc"
+        Proper Suffix: "" "d" "cd" "bcd"
+
+        O(n): Longest Prefix which is equal to Suffix
+            i/p: aaaa
+            o/p: 0123
+
+            compare str[i] with str[len-i].. If same increment and keep on incrementing 
+            if different:
+                and len==0:
+                    lts[i]=0
+                if len!=0:
+            
+            So the rules are:
+                1. If str[i] and str[len] match, lps[i]  = len+1, len++
+                2. If they do not match:
+                    a. if len==0:
+                        lps[i]=0
+                    b. else:
+                        len = lps[len-1]
+                        we now compare str[i] and str[len]
+
+                Eg: str = a b c b a b c a
+                lps[0] = 0 len =0
+                lps[1] = 0, len = 0 (case 2a)
+                lps[2]= 0 , len=0, case 2a
+                lps[3] = 0, len = 0, case 2a
+                lps[4] = 1, len = 1, case 1
+                lps[5] = 2, len=2 case 1
+                lps[6] = 3, len= 3 , case 3
+                lps[7] = case 2b
+                    len = lps[len-1] = lps[2] = 0
+                    case 1 (len = 0, str[i] = 'a' and str[len] = 'a' since they are matching)
+                    lps[7] = 1, len =1
+            void filllps(str,lps[]){
+                int n = str.length()
+                len = 0;
+                int i =1;
+                while(i<n){
+                    if(str[i]==str[len]){
+                        len++; lps[i] = len;i++;
+                    }
+                    else{
+                        if(len==0){
+                            lps[i] = 0;i++;
+                        }
+                        else{
+                            len=lps[len-1];
+                        }
+                    }
+                }
+            }          
+                  0 1 2 3 4 5 6 7 8 
+            str = A A A B A A A A C
+
+            lps[0] =0 len=0
+            lps[1] = 1 , len=1 (case 1)
+            lps[2] = 2, len=2 (case 1)
+            lps[3]: case 2b
+                len = lps[1] = 1
+                str[i]!= str[len] and len>0 case 2b
+                len = lps[0] = 0 
+                lps[3] =0 case 2a
+            lps[4]: 1 , len=1
+            lps[5]: 2 , len=2
+            lps[6]: 3, len = 3
+            lps[7]: case 2b
+                len = lps[len-1] = lps[2] = 2
+                str[7] = str[2]
+                lps[7] = 3, len=3
+            lps[8]: case 2b:
+                str[8]!=str[3]:
+                    len = lps[2] = 2 
+                    str[8]!=str[2]
+                        len = lps[1] = 1
+                        str[8]!=str[1]
+                            len = lps[0]=0 case 2a
+                                lps[8] = 0
+            Best case = Theta(n)
+            Worst = Theta(2n) = Theta(n)
+KMP Algo:
+        make an lps[] array:
+            void KMP(pat,txt){
+                int n = txt.length()
+                int m = pat.length()
+                int lps[m]
+                filllps(pat,lps)
+                int i =0;j=0;
+                while(i<N){
+                    a:
+                    if(pat[j]==txt[i]) i++ j++
+                    b:
+                    if(j==m) print(i-j) j= lps[j-1]
+                    
+                    else if(i<n and pat[j]!=txt[i]){
+                        c:
+                        if(j==0) i++
+                        
+                        d:
+                        else j=lps[j-1]
+                    } 
+                }
+            }
+
+            txt= a b a b c a b a b a a d
+            pat = a b a b a 
+            lps[] = [0,0,1,2,3]
+            i=0 j=0
+            a b a b c a b a b a a d
+            _ 
+            a b a b a
+            _ 
+
+            after that we go to the d. section and find lps[3] = 2
+
+            as long as characters are matching, i++ j++
+            i = 4 j = 2
+
+            since j!=m we dont print anything(in short its telling the algo that it is not found)
+
+            a b a b c a b a b a a d 
+                    _  
+            a b a b a
+                _
+            again go to the d. section and find out that the lps[j-1] = lps[1] = 0
+
+            now we have i = 4 j = 0
+            a b a b c a b a b a a d 
+                    _  
+            a b a b a
+            _    
+
+            now we are on the c. case
+            i=5 j = 0
+            a b a b c a b a b a a d 
+                      _
+            a b a b a
+            _ 
+
+            since they match, we keep on doing i++ j++ and we 
+            come to b. eventually 
+            at i = 10, j = 5 , hence we print
+            i-j = 5 
+            and j becomes lps[4] = 3
+
+            i=10 j = 3
+
+            a b a b c a b a b a a d 
+                                _
+            a b a b a
+                  _
+
+            d. 
+            j = lps[2] = 2
+            j = lps[1] = 0
+            i=10 j = 0
+            a b a b c a b a b a a d 
+                                _
+            a b a b a
+            _
+
+            i=11 j=1
+            since they do not match:
+            i=11 j=lps[0]=0
+            i++ = 12
+            Now the loop breaks
+    Worst case of KMP:
+        Theta(2*n) = Theta(n)
+
+Longest substr with distinct characters:
+    Soln:
+    int longest(string str){
+        int n=str.length(), res=0;
+        vector<int> prev(256,-1);
+        int i=0;
+        for(int j=0;j<n;j++){
+            i = max(i,pre[str[j]]+1)
+            int maxEnd= j-i+1;
+            res= max(res,maxEnd)
+            prev[str[i]]=j
+        }
+        return res
+    }
+
+        for eg:
+        a b c a d b d 
+        
+        Traverse through the string first:
+        if(last character not equal not the current character, do i++)
+        i=0 j=0
+        a b c a d b d
+        _
+        i= 0 j=0, maxEnd = 1, res=1,prev['a']=0
+        i= 0 j=1, maxEnd = 2, res=2,prev['b']=1
+        i= 0 j=2, maxEnd = 3, res=3,prev['c']=2
+        i= 1 j=3, maxEnd = 3, res=3,prev['a']=3
+        i= 1 j=4, maxEnd = 4, res=4,prev['d']=4
+        i= 2 j=5, maxEnd = 4, res=4,prev['b']=5
+        i= 5 j=6, maxEnd = 2, res=4,prev['d']=6
+
+        O(n)
