@@ -90,8 +90,8 @@ String Notes
     boolareRotations(string s1, string s2){
         if(s1.length()!=s2.length()){
             return false;
-        s1= s1+s2;
-        return(sl.find(s2)!=string::nps)
+        s1= s1+s1;
+        return(sl.find(s2)!=string::npos)
         }
     }
 
