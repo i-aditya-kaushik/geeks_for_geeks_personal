@@ -208,5 +208,6 @@ Merge two sorted linked lists
     comparing a and b and updating the tail pointer for the minimum of the two.
     If one of these two pointers become null.. then print the remaining of the ll
 
+     O(m+n) time and O(1) 
 
     
