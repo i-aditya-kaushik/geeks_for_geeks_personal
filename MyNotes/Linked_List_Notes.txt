@@ -155,5 +155,58 @@ Without head pointer delete a given node
     ptr->next = temp->next;
     delete(temp)
 
-singly ll:
+Segregate even odd nodes of ll:
+    Whenever we find the first even node, we then make it the head
+    Keep connecting odd nodes too
+    Then even end node connect to odd nodes
+
+Intersection of two ll:
+    Option 1:
+        unordered_set first and then search for the Intersection
+    Option 2:
+        Count the number of elements in ll 1
+        Same for ll2
+        Then do count(l1)-count(l2) and start l1 from index count(l1)-count(l2) [Basically deleting extra part from the end] 
+    
+Pairwise swap nodes:
+    Option 1:
+        Swap data
+    Option 2:
+        Swapping pointers
+    Swapping pointers is more preferred as compared to Swapping data as data can contain lengthy objects
+    For Code, refer photo
+
+Clone a ll using random pointer
+    insert nodes in between. Same nodes to be placed in between the ll
+    Step 2:
+        Connect the random of that node to the random of the same node and then do random of next node to get the original connection. 
+        Repeat the earlier steps until we come at the end. Then we connect all the pointers thereafter
+
+LRU Cache Design:
+    Cache Size: 4
+    10,20,10,30,40,50,30,40,60,30
+
+    Expected Cache Behaviour:
+        10 Miss
+        20 10 Miss
+        10 20 Hit
+        30 10 20 Miss
+        40 30 10 20 Miss
+        50 40 30 10 Miss
+        30 50 40 10 Hit
+        40 30 50 10 Hit
+        60 40 30 50 Miss
+        30 60 40 50 Hit 
+
+        Hit % = 40%
+    
+    Hash Table is used for quick access and doubly linked list for organisation of the data
+
+Merge two sorted linked lists
+    Maintain a tail pointer too.. compare the first element of the ll and then choose the minimum 
+    of the two and choose the smaller and make it as the head. Keep moving ahead of the ll and keep 
+    comparing a and b and updating the tail pointer for the minimum of the two.
+    If one of these two pointers become null.. then print the remaining of the ll
+
+
     
