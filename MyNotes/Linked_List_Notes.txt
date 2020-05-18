@@ -1,0 +1,159 @@
+Problems with arr:
+    Preallocate the space or Dynamic Size
+    If Dynamic size, then it can be costly in terms of size taken
+    Insertion of elements can be costly.. if need to be inserted in between
+    Same for deletion
+    For eg:
+        Round Robin Scheduling using Arrays is very costly
+    
+Linked List:
+    Linear Data Structure
+    In c++ we use pointers and java we use refrences
+    Advantages:
+        We do not have to Preallocate memory.
+        Insertion, deletion can be done easily
+    struct Node{
+        int key;
+        Node *node;
+        Node(int x){
+            key = x;
+            next = NULL;
+        }
+    }
+
+    Node *insertBegin(Node *node, int key){
+        Node *temp = new Node(key);
+        temp->next = head;
+        return *temp;
+    }
+
+    Doubly Linked List:
+        c++:
+            struct Node{
+                int data;
+                Node *next;
+                Node *prev;
+                Node(int d){
+                    data = d;
+                    next = prev = NULL;
+                }
+            }
+        
+        Python:
+            class Node{
+                def node(self,int data):
+                    self.data = data
+                    self.prev = None
+                    self.next = None
+            }
+
+        Forward backward in browser are possible with doubly linked Lists
+
+        Advantages over singly linked Lists:
+            1. Can be traversed in both the directions
+            2. We can delete a given node in O(1) time. It can be done with singly linked lists as well, but the last node can not be deleted with that methodology.
+            3. We can insert/delete a node before a given node in O(1) time
+        Disadvantages:
+            1. space required for extra pointer with every node
+            2. The Doubly Linked lists code becomes more comflex as extra pointer has to be maintained everywhere
+    
+    Circular Linked Lists:
+        Advantages:
+            1. We can insert at the begin and end end in O(1).
+            2. traverse all nodes from any given end
+            3. Best Way to implement Round Robin
+        Disadvantages:
+            1. Codes for traversal, insertion, deletion etc becomes slightly complex
+        Types of Circular Linked Lists:
+            1. singly
+            2. Doubly
+    Find middle of linked lists:
+        Best Solution:
+            Slow and Fast Nodes implementation:
+                Slow moves one step at a time and fast moves 2 nodes at a time
+                void printMiddle(Node *node){
+                    if(head==NULL){
+                        return;
+                    }
+                    while(fast!=NULL && fast->next!=NULL){
+                        slow = slow->next;
+                        fast = fast->next->next;
+                    }
+                    cout<<slow->data;
+                }
+
+Find nth Node from end of LL:
+    Two pointer approach:
+        initialize second pointer as the beginning one and first pointer as nth node from the beginning
+        Traverse until the first pointer comes to the last pointer
+        When it comes to the last pointer, print the data of the current node
+
+Reverse a linked List:
+    Change the links:
+        next-> curr->next;
+        curr->next = prev;
+        prev = curr
+        curr = next
+    
+    Node *Reverse(Node *head){
+        Node *curr = head;
+        Node *prev = NULL;
+        while(curr!=NULL){
+            Node next = curr->next;
+            curr->next= prev;
+            prev = curr;
+            curr = next;
+        }
+        return(prev)
+    }
+
+    Recursive Solutions to reverse LL
+        Node recRevL(Node *curr,Node *prev){
+            if(curr==NULL) return prev;
+            Node *next = curr->next;
+            curr-> next = prev
+            return recRevl(next,curr)
+        }
+    Reverse a LL in groups of size k
+        Refer code picture: Both Recursive methodology and iterative method
+    Detect Loop if there:
+        Naive Solution: O(n**2)
+        Option 2:
+            We redefine the Node def.. we add a bool var visited
+            O(n) More space tho
+        Option 3:
+            temp variable and make all nodes point at that node.. you destroy the LL however
+        Option 4:
+            Traverse the ll and put it in unordered set 
+        Using Floyd Cycle Detection:
+            Slow and fast nodes if equal then they have a loop... come out of the loop if any one of the node's next is NULL
+    
+    Detect Loop if there and then remove it:
+        Use Floyd's algo
+        void detectrmloop(Node *head){
+            Node *slow=head, Node *fast = head;
+            while(fast!=NULL and fast->next!=NULL){
+                slow = slow->next;
+                fast = fast->next->next;
+                if(slow==fast){
+                    break;
+                }
+                if(slow!=fast){
+                    return;
+                }
+                slow=head;
+                while(slow->next!=fast->next){
+                    slow = slow-> next;
+                    fast = fast->next->next;
+                }
+                fast->next=NULL;
+            }
+        }
+Without head pointer delete a given node
+    Node *temp = ptr->next;
+    ptr->data = temp->data;
+    ptr->next = temp->next;
+    delete(temp)
+
+singly ll:
+    
