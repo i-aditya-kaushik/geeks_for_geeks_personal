@@ -1,0 +1,113 @@
+Stacks: LIFO
+
+stack operation: push,pop
+if stack is empty:
+    if u try to pop then it will give an error. It is called stack underflow
+    if u try to push into full stack.. then its called stack overflow
+Applications of Stacks:
+    Function calls
+    Checking Balanced Parenthesis
+    Reversing items
+    infix to postfix/prefix
+    Evaluation of postfix/prefix
+    Stock span problem and its variations
+    Undo/Redo or forward/backward
+Stack in c++ stl:
+    stack<int>s;
+    s.push(10);
+    s.push(20); //pushes
+    s.pop(); //pops
+    s.size(); //size
+    s.top(); //gives top item
+
+    Every operation is o(1)
+
+implementation of Stack
+    Array implementation or Linked List implementation
+    push(x){
+        if(top==cap-1){
+            cout<< "ERROR: STACK OVERFLOW"
+        }
+        top++;
+        arr[top] = x;
+    }
+    pop(x){
+        if(top==-1){
+            cout<< "ERROR: STACK UNDERFLOW"
+        }
+        res = arr[top];
+        top--;
+        return(res);
+    }
+    
+    Using ll:
+    push(x){
+        temp = new Node(x);
+        temp->next = head;
+        head = temp;
+    }
+    pop(){
+        res = head->data;
+        temp = head;
+        head = head->next;
+        delete(temp);
+        return res;
+    }
+    Both are O(1)
+
+Balanced Parenthesis:
+    bool isBalanced(string str){
+        stack<int>s;
+        for(int i=0;i<str.length();i++){
+            if(str[i]=='(' || str[i]=='[' || str[i]=='{'){
+                s.push(str[i]);
+            }
+            else{
+                if(s.size()==0){
+                    return false;
+                }
+                else if(matching(s[i],s[top])){
+                    return false
+                }
+                else{
+                    s.pop();
+                }
+            }
+        }
+        return s.empty()==true
+    }
+
+implementation of two stacks in Array:
+    start one from the beginning and start one from the end
+    keep incrementing the start and keep decrementing the end 
+    And then when they cross, end.. before this happens, you keep puushing
+
+implementation of k stacks in an Array:
+    sn: 0 to k-1
+    we maintain the array of k tops
+    Keep updating the arrays of next array which contains data of the pointing and existance of k arrays
+
+Stock Span problem:
+    stack<int> s;
+    s.push(0);
+    for(int i=1;i<n;i++){
+        while(s.empty()==false and arr[s.top()]<=arr[i]){
+            s.pop();
+        }
+    }
+
+prev greater ele:
+    Similar soln as Stock span problem
+
+Next greater ele:
+    Similar to prev greater ele, traverse in the backwards direction
+
+Largest rectangular area in a histogram:
+    Find previous smaller ele and next smaller and return the result
+    O(N).. Three traversal
+
+Stack getMin() in O(1)
+    Maintain an aux stack
+    if newly added item is smaller then add on aux stack
+    if the popped item is on top of the main stack, then pop from that item
+    
