@@ -1,0 +1,37 @@
+Queue:
+    Enqueue: Inserting in a Queue
+    Dequeue: Deleting the first element which was deleted
+
+    queue<int> s;
+    s.enqueue(10);
+    s.dequeue()
+
+    Two pointers: front and back
+    Other Operations:
+        enqueue()
+        dequeue()
+        front()
+        size()
+
+Applications of Queue:
+    Single resource and multiple consumer to be sorted in the arrival orders
+    Sync between slow and fast devices
+    In OS:
+        Semaphores
+        FCFS Scheduling 
+        Spooling in Printers and other devices
+        Buffer for devices like keyboard
+
+    In Networks:
+        Queue in routers and switches
+    Doctor's Queue
+    Variation(Deque,Priority Queue)
+
+Implementation of Queue using array
+    O(1) insertion and O(1) deletion:
+        circular array:
+            rear= (rear+1)%cap
+            front = (front+size-1)%cap;
+
+Implementation of Queue using LL:
+    
