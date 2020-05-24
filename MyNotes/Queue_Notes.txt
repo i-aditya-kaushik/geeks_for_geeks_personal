@@ -34,4 +34,89 @@ Implementation of Queue using array
             front = (front+size-1)%cap;
 
 Implementation of Queue using LL:
+    Queue as LL: maintain two pointers front and rear
+    Refer picture for code
+    O(1) for all Operations
+
+Queue in STL:
+    queue<int> q;
+    Operations: q.push(): pushes the element at the last, 
+    q.pop(): Remove from the first, 
+    q.front(): Returns the front element, 
+    q.back(): Returns the back element, 
+    q.size(): Returns size
+
+Implement Stack using queue:
+    Refer code as picture
+    We use 2 queues:
+        One auxillary queue where we keep on pushing until the first queue becomes null and then we push in the first element in the first queue. Thereafter we keep on pushing from the second queue till the second queue becomes null
+    For one queue:
+        For pushing:
+            Push the value into the stack.
+            maintain a variable for size.. traverse it once using for loop.. push the front of the queue in the queue and keep popping as u do it
+        For popping:
+            Simply pop.. since we maintained the order in push
+        For top.. simply return the front value of queue
+
+Reversing the queue:
+    Iterative:
+        traverse and put in the stack.. then pop and push them in queue
+    Recursive can be Implemented similarly
+
+Generate numbers with given digits:
+    push 5 and 6.. then pop the first number and add string 5 and 6.. so number becomes 55 and 56 when we pop 5.
+
+Deque Data Structure:
+    we Have 2 ends:
+        Insertion and deletion can be done with both the ends
+    Functions: getfront, getRear,isFull, isEmpty, size
+
+Deque Implementation:
+    LinkedList:
+        Doubly LinkedList
+    Array:
+        circular Array
+    Applications:
+        1. Can be used as both stack and queue
+        2. Browser History
+        3. A stal process Scheduling algo
+        4. Implementation of Priority queue with 2 Priorities
+        5. Min/Max of the sub arrays of given array
+
+Deque in STL:
+    deque<int> dq;
+    dq.push_front(5);
+    dq.push_back(50);
+    for(auto it:dq){
+        cout<<x<<" ";
+    }
+    auto it = dq.begin();
+    it++;
+    dq.insert(it,20);
+    dq.pop_front()
+    dq.pop_back()
+    dq.size()
+    dq.insert(it,7)
+    dq.insert(it,2,3)
+    dq.erase(it+1)
+    //also acts as a normal array without iterator:
+    for(int i=0;i<dq.size();i++){
+        cout<<dq[i];
+    }
+    How does deque work?
+    We use an array of pointers for accessing randomly
+        Pointer[0]
+        Pointer[1]
+        Pointer[2]
+    The pointers point to the data of begin, end or any other data in between the deque to maintain random access
+
+Design a Data Structure with Min and Max Operations:
+    Maintain a deque and insert at one end if minimum and insert from other end if maximum..
+    getmin then we return front and getmax we return read
+
+Maximum of all subarrays of size k:
+    Efficient sol:
+        Deque:(Doubly ended Queue)
+            For the code, refer the picture.
+
     
