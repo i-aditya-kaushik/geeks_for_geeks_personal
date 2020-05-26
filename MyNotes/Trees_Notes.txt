@@ -1,0 +1,23 @@
+Trees are used to represent hirarchy like Subfolders inside folders.
+Top nodes are called root. The leaf is the last branch
+Children and parent
+Degree of nodes: No of children of a particular node
+
+Application of Trees:
+    hirarchical data representation
+    Folder structure
+    XML/HTML Content
+    In OOP
+    BST
+    Binary Heap
+    B and B+ Trees
+    Spanning and Shortest path Tree
+    Parse Tree
+    Trie: Dictionary
+    Suffix Tree: Pattern search
+    Binary Index Tree and Segment Tree
+
+Binary Tree:
+    At most 2 children of a node
+    max(degree) = 2
+    
