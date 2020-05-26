@@ -122,8 +122,145 @@ Tree Traversal:
             return Math.max(root->key,Math.max(root->right,root->left))
         }
     }
+    Space Complexity: O(h)
+    Time Complexity: O(n)
 
+    When we do iterative solution, using queue, the space Complexity is O(w).
 
+height of Binary tree:
+    int height(Node *tree){
+        if(root==NULL){
+            return 0;
+        }
+        else{
+            return(1+ Math.max(height(root->left), height(root->right)));
+        }
+    }
 
+    O(n): Time Complexity
+    O(h): Space Complexity
+
+    When we do iterative solution, using queue, the space Complexity is O(w).
+
+Print Nodes at k distance:
+    if(k==0){
+        cout<<root->key;
+    }
+    else{
+        printkDist(root->left,k-1)
+        printkDist(root->right,k-1)
+    }
+
+    Best case: Theta(1)
+    Worst case: Theta(n)
+    O(h) for space Complexity
+
+Print Left view:
+    static variable maxlevel = 0
+    if level is greater than the maxlevel, we print it and update the maxlevel
+    Since the node reaches the leftmost node first, we will always print the leftmost level
+    O(n),O(h)
+
+    iterative solution:
+        We only print the first element of the queue
+        Then we pop the rest 
+        O(n),O(w)
+    
+Check if tree follows children sum property
+    Refer code for reference
+
+Check for balanced bin tree:
+    if(root==NULL){
+        return(0);
+    }
+    lh= balanced(root->left);
+    if(lh==-1){
+        return(-1);
+    }
+    rh = balanced(root->right);
+    if(rh==-1){
+        return(-1);
+    }
+    if(abs(lh-rh)>1){
+        return -1;
+    }
+    else{
+        return max(lh,rh)+1;
+    }
         
+Maximum width of tree:
+    Do BFS and add 1 when you pop each item. AFter doing that, simply compare the maximum and return the max value
 
+Convert tree to doubly linked list:
+    Simply follow the inorder traversal and maintain a doubly linked list as well
+    Refer picture for code
+
+Binary tree from inorder to preorder : Read it
+
+Spiral Form:
+    Deque implementation and BFS
+
+Diameter of Binary Tree:
+    Diameter of node is length of lh + 1+ length of rh: Naive solution
+    Better solution:
+        unordered_map<int,int> but extra space, O(n)
+    Best solution:
+        if(root==NULL){
+            return(0);
+        }
+        int lh = height(root->left);
+        int rh = height(root->right);
+        res = max(res,lh+rh+1)
+        return 1+max(lh,rh)
+
+Lowest Common Ancestor:
+    THis problem is also used to find the distance between 2 nodes 
+
+Burn the binary tree from a leaf
+    We can use the LCA and find height of the other side.. Also, we can use the diameter of the tree and do the same
+    Refer code for reference
+
+Count Nodes in a Complete Binary Tree:
+Theta n
+    if(root==NULL) return 0;
+    else{
+        return 1+ func(root->left)+func(root->right);
+    }
+
+Efficient solution:
+    Begin with a root.. get the left height and right height and then compare.. if both are same, then do 2^lh - 1 to get the height.. else Recursively go through until it is 
+    and then follow the same path
+    Refer Code for reference
+    Best case:  Theta(h)
+    Worst case:
+        T(n) = T(2n/3) + Theta(h)
+        O(log(n)*log(n))
+    
+Serialization and Deseriazation of Binary Tree:
+    Applications:
+        Used in GFG where the test cases areconsidered to be serialization.. and when the user wants to run the test cases, that is Deseriazation
+        Sending data over the network is done using serialization and when we get the data, we use Deseriazation
+    Use a special marker for null (say -1)
+    FOr serialization, do pre order traversal if root->left becomes null, store -1 in vector 
+    For Deseriazation:
+        say we got the following after serialization:
+            10 20 -1 -1 30 -1 -1
+
+            Note we did using pre order:
+            
+            Therefore, we get the following tree
+
+                 10
+                /  \
+               20  30 
+
+    implementation of serialization and Deseriazation:
+        For serialization:
+        Traverse through using the preorder 
+
+        if the root becomes null push -1
+
+        Deseriazation:
+            Refer code for reference
+            Serialization: Theta(n), Theta(n)
+            Deseriazation: Theta(n)
