@@ -264,3 +264,6 @@ Serialization and Deseriazation of Binary Tree:
             Refer code for reference
             Serialization: Theta(n), Theta(n)
             Deseriazation: Theta(n)
+
+    For an n-ary tree where each node has n children or no children, following relation holds
+    L = (n-1)*I + 1
