@@ -1,0 +1,105 @@
+Refer complexities in complex.jpg
+
+BST:
+    For every node, keys in left side are smaller and right are greater
+    Like linked list: It is linked data structure
+    Not cache friendly
+    Operations: Create an empty BST
+    if insert 20,15,30,40,50,12,18,35,80,7
+
+                    20
+                    /\
+                   15 30
+                   /\   \
+                  12 18  40
+                  /        \
+                 7          50
+    Self balancing BST:
+        AVL Tree 
+        Red Black Tree
+    AVL Tree:
+        Rules: |lh-rh| <=1  (Balance Factor)
+        Operations: insert,delete are complex since we need to maintain the balance Factor
+        Cases for rotation:
+        1. Left Left Case : Single rotation
+        2. Left right Case : Double rotation
+        3. right right Case : Single rotation
+        4. right left Case : Double rotation
+        All the Operations are Theta(logn)
+        h< c(log2(n+2)) + b
+        where c~1.4405 b ~ -1.3277
+    Red Black Tree:
+        No of rotations are lesser since the rules are not that strict.. when searches are many, we have better option as AVL, when we have
+        a mix of searches, insertions and deletions, then Red Black tree is preferred
+
+        Rules:
+        1. Every node is either red or black 
+        2. The root of tree is always black.
+        3. There are no two adjacent red nodes (A red node cannot have a red parent or red child).
+        4. Every path from a node (including root) to any of its descendant NULL node has the same number of black nodes.
+
+    Applications of BST:
+        1. To maintain the sorted structure of data
+        2. To implement doubly ended priority queue
+        3. To solve problems like:
+            1. Count smaller/greater in a stream 
+            2. Floor, ceil, greater,smaller in a stream
+    It is recommended to use self balancing BST when we need to insert, delete and maintain sorted order. However, otherwise we prefer hashing
+
+    set<int, greater<int>> s; //makes a set which is arranged in a greater set 
+    Cant input duplicates
+    auto it = s.find(x)
+    if(it==s.end())
+        cout<<"Not found";
+    s.clear() //remove all the elements
+    s.erase(X) used to erase an element
+    auto it = s.lower_bound(5) //returns floor of an element
+    auto it = s.upper_bound(5) //returns ceil of an element
+    Set uses Red Black Tree O(logn).. if we have the iterator to the element which needs to be deleted, then the Operation costs 
+    O(1)
+
+    map<int,int> s; 
+    s.insert({5,100})
+    s[5] = 100
+
+    if we do cout<<m[20] then {20,0} is inserted into the map 
+    m.at(10) = 300; //checks if the element is present or not 
+    m.insert({5,'ABC'})
+    m.find(5) //does not point to s.end()
+    m.count(2)//returns the count of 2 
+    auto it = m.lower_bound(4) or m.upper_bound(4)
+    if(it!=s.end()){
+        cout<< it->second;
+    }
+    m.erase(m.find(2),m.end()) gets the occurance of 2 and deletes all the elements after that 
+
+    begin() : 
+    end() 
+    rbegin()
+    rend 
+    size 
+    find(iterator)
+    erase(iterator)
+    empty  
+    All the above functions are O(1)
+
+    count()
+    find()
+    insert(key)
+    insert 
+    at 
+    All the above functions are O(logn)
+
+    ceiling on left side of an array:
+        use set 
+    
+    find kth smallest element in BST 
+
+
+
+
+
+    
+
+
+                
