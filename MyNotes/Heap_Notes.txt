@@ -70,8 +70,29 @@ Print k largest ele:
 
     Best Solution:
         Make a min heap.
-    Median of the stream:
-        
+    Merge K sorted arrays:
+        given a vector of vectors 
+        One solution:
+            Merge sort O(nk^2)
+        Best Solution:
+            Make an object with three variables:
+                1. Value of the ele
+                2. The array number
+                3. The element of the array
+            Keep on performing priority_queue operations on the arr
+            O(nklogk)
+            Refer code for reference
+    Median of a stream:
+        Approach 1:
+            BST.. 
+        Approach 2:
+            Min heap and Max heap:
+                Make 2 containers.. Smaller half and greater half.. if size is even then average of 
+                the biggest element in the first container and the smallest in the second container 
+                If the size is odd, return the smaller containers last ele
+    
+
+
 
 
 
