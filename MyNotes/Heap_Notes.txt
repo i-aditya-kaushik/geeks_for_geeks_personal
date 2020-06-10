@@ -1,0 +1,78 @@
+Binary Heap:
+    Priority Queue:
+        Two Types:
+            Min Heap : If u you minimum value of Priority, you will be placed first
+            Max Heap : If u you maximum value of Priority, you will be placed first
+        Binary Heap of a Complete Binary Tree
+        Complete Binary Tree meaning:
+            left(i) = 2*i+1 
+            right(i) = 2*i+2 
+            parent(i) = floor((i-1)/2)
+        Min heap:
+            Is a Complete Binary Tree
+            The root should be lesser than its descendants
+        class MinHeap{
+            int arr[];
+            int size;
+            int capacity;
+            MinHeap(int c){
+                arr= new int[i];
+                size = 0;
+                capacity =c;
+            }
+            int left(int i){return(2*i+1);}
+            int right(int i){return(2*i+2);}
+            int parent(int i){return((i-1)/2);}
+        }
+    More operations in Heap:
+        Heapify: 
+            Compare root, left and right node's data.. if root is not minimum, swap so that root is minimum.. 
+            Keep on calling minheapify func for the swapped node 
+            Best case: Theta(1) Worst Case: Theta(h) or Theta(logn)
+        Extract Min:
+            Extract the root and swap the root with max 
+            Then Heapify
+        Binary Heap(Decrementing, Delete and Build Heap)
+            Change a value and Heapify: Decrease
+            Delete: Decrease Key and then Extract minimum
+            Build Heap: 
+                minheapify for the bottommost rightmost Complete subtree
+                Thean call minheapify for every i--;
+
+                BuildHeap = O(n)
+            Heap Sort:
+                Selection Sort updation:
+                    First we find the largest rightmost bottommost element and then find parent and find maxheapify for that node.
+                    Swap first ele with max heap's last ele and then recursively repeat until heap has 0 elements
+                    nlog(n)
+Priority Queue In c++ stl:
+    priority_queue<int> pq; 
+    priority_queue<int,vector<int>,greater<int>> s; //min heap 
+    pq.push(13);
+    pq.push(132);
+    pq.top() //max ele
+    pq.pop() //removes top 
+    int arr[] = {10,5,15};
+    priority_queue<int> pq(arr,arr+3); // directly converts arr to maxheap
+
+    Dijkstra's Algorithm is also implemented using priority_queue
+
+Sort a k sorted array:
+    Use min heap..
+    See code for reference
+Count the maximum items with a particular sum of money:
+    O(n) + O(res*logn) , no aux space 
+    Min heap
+
+Print k largest ele:
+    Build a max heap and klogn 
+    O(n) + O(klogn(n))
+
+    Best Solution:
+        Make a min heap.
+    Median of the stream:
+        
+
+
+
+
