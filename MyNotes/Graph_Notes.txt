@@ -1,0 +1,145 @@
+Graph:
+    Friendly relationship or random connection:
+        G = (V,E)
+        Directed or undirected:
+            Directed Graphs are those which are following a specific direction.. eg when we 
+            define (v1,v2) in Directed Graph it may mean that we are moving from v1 to v2 or 
+            v2 to v1 but not both
+
+            undirected Graphs are those which follow both the directions. For eg, (v1,v2) may 
+            mean that v1 and v2 are moving in both the directions
+        
+        Degree of a undirected graph vertice: Number of paths going from that node 
+        Degree of a Directed Graph vertice: Indegree: Number of paths coming in 
+            Outdegree: Number of edges going away from the node 
+        Sum of Indegrees = Sum of Outdegrees = Number of edges or |E|
+        For undirected, Sum of Degrees = 2*|E|
+        Max Number of edges in directed = |v|*(|v|-1) [Complete Graph]
+        Max Number of edges in undirected = [|v|*(|v|-1)]/2 
+
+        Walk and Path: 
+            Walk or Path: v1 to v2 to v4 to v2 (Repetition of a vertice)
+            Path or Simple Path: v1 to v2 to v4 (No Repetition of a vertice)
+        
+        Cyclic: If a walk begins and ends with the same vertice
+        Acyclic: Not Cyclic: eg, Directed Acyclic Graph(DAG) has many applications in
+        Job Scheduling 
+    Weighted Graph: cost required to move from one vertice to another
+        
+    Graph Representation:
+        1. Adjacency Matrix
+        2. Adjacency List
+    Adjacency Matrix:
+        v*v matrix showing the path between the vertices .. When drawing for undirected graph, the matrix is symmetric
+        [
+            [0,1,1,0]
+            [1,0,1,0]
+            [1,1,0,1]
+            [0,0,1,0]
+        ]
+
+        For Directed: It is not symmetric
+    
+        Properties of Adjacency Matrix Representation:
+            Space required: Theta(v*v)
+
+            Properties:
+            Check of u and v are Adjacent: Theta(v)
+            Find all vertices Adjacent to u: Theta(v)
+            Find Degrees of u: Theta(v)
+            Add Remove an edge : Theta(1)
+            Add Remove a vertex: Theta(1)
+        
+    Adjacency List:
+        An array of lists where lists are not populatory represented 
+        as:
+            1. Dynamic Sized arrays
+            2. Linked Lists 
+        Dynamic Sized arrays are preferred due to cache Friendlyness.. Disadvantage
+        is that they preallocate memory and deletion might be dicey
+
+        Space: Theta(v+2*E) for undirected
+               Theta(v+E) for directed 
+        Operations:
+            Check of u and v are Adjacent: Theta(v)
+            Find all vertices Adjacent to u: Theta(degree(u))
+            Find Degrees of u: Theta(1)
+            Add Remove an edge : Theta(1)
+            Add Remove a vertex: Theta(v)
+        
+        Graph Adjacency List Representation in C++:
+            void addEdge(vector<int> adj[], int u,int v){
+                adj[u].push_back(v);
+                adj[v].push_back(u);
+            }
+
+            int main(){
+                int v = 4;
+                vector<int> adj[v];
+                addEdge(adj,0,1);
+                addEdge(adj,0,2);
+                addEdge(adj,1,2);
+                return 1;
+            }
+    BFS of a graph:
+        Print the attached nodes to the node and then move to other nodes 
+        Make a visited array which has all the vertices.. and if all are visited,
+        then break, else simply do level order traversal for those vertices
+    BFS of a disconnected graph:
+        now we cant assume that only come out of the loop when queue is empty. Now we 
+        need to cater to the condition where we have one or more Falses in the visited 
+        array.. if there are some false, that means our graph is disconnected. In that 
+        case, we again move to the first 'False' visited node and continue until all are
+        visited
+    Time Complexity for BFS:
+        O(V+E)
+    Applications of BFS:
+        1. Shortest path in unweighted Graph
+        2. Crawlers in Search Engines
+        3. Peer to Peer Networks
+        4. Social Networking Search
+        5. In garbage collection(Cherey's Algorithm)
+        6. Cycle Detection
+        7. Ford Fulkerson Algorithm
+        8. Broadcasting
+    DFS:
+        Randomly calls an adjacent node to the root.. recursively do it until all the nodes are visited
+        DFS of a tree is different because we need to make sure that a node is visited only once 
+        Refer code for Referance 
+        
+        For disconnected graph:
+            same as BFS idea 
+    Applications of DFS:
+        1. Cycle Detection
+        2. Topological Sorting: Make file utility: For eg we have 3 files, A B C.. if u wanna update C, u need to first
+        call A and B.. in such a scenario, having a DFS approach will help do the above task efficiently
+        3. Strongly connected components 
+        4. Solving Maze and Similar puzzles 
+        5. Path Finding 
+        6. Back Tracking 
+    Shortest Path in an unweighted graph:
+        1. Use BFS 
+    Detected cycle in undirected graph:
+        1. Use DFS preferably
+    Detected cycle in a directed graph:
+        DFS Based solution:
+            Detect Back Edges by maintaining a boolean array
+        BFS Based solution:
+            Use Kahn's Algorithm, if by chance there occurs a point where there are no nodes with indegree 0, then we say 
+            that the graph is cyclic 
+
+    Topological sorting:
+        Roots are jobs and adjacent leaves are dependencies 
+        DFS approach:
+            1. Maintain a stack, maintain an array of indegree.. push the nodes which have indegree 0.. then 
+            reduce the indegree of the adjacent vertices by 1 and print and pop the elements 
+        BFS: 
+            Make an array.. do similarly
+            Kahn's Algorithm(Works only if graph is Acyclic)
+    
+    Shortest Path in DAG:
+        Initialize dist[v] = {INF,INF..}
+        dist[i] = 0
+        Find Topological sort 
+        if dist[v]>dist[u] + weight(u,v) dist[v] = dist[u] + weight(u,v)
+        
