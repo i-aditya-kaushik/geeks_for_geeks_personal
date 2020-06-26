@@ -1,0 +1,31 @@
+Greedy algorithms seeks the most optimal solution for a given problem.
+However, not always gives the optimal solution
+
+For the following Problems, it gives the optimal solution:
+    1. Finding optimal solutions:
+        a. Activity Selection
+        b. Fractional Knapsack
+        c. Job Sequencing
+        d. Prim's algorithm
+        e. Kruskal's algorithm
+        f. Dijkstra's algorithm
+        g. Huffman Coding
+
+    2. Finding close to optimal solutions for NP Hard problems like: 
+    Travelling Salesman Problem
+
+Activity Selection Problem:
+    1. Sort the Activities wrt finish time 
+    2. If the next activity overlaps, dont add, else add 
+    Refer code for Referance 
+Fractional Knapsack Problem:
+    1. Sort the items according to value / weight ratio 
+
+O(nlogn)
+
+Job Scheduling Problem:
+    1. Sort in decreasing order of profit
+    2. initialize the result as first job in second list. Assign the latest possible slot 
+    3. Do the following for the remaining:
+        a. If this job cant be added, ignore 
+        b. Else add to latest possible slot
