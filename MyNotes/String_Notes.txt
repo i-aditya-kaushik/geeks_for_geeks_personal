@@ -1,7 +1,7 @@
 String Notes
 
     1. Definition: String s = "geeksforgeeks";
-    2. cout<<s.find(geek);//returns index of first occurance
+    2. cout<<s.find('geek');//returns index of first occurance
     3. cout<<s.substr(1,2); //ee [in the frmat of starting ind to length]
     
     Anagram or not:
